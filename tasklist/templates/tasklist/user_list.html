@@ -1,0 +1,31 @@
+{% extends "tasklist/base.html" %}
+{% load static %}
+
+{% block title %}ユーザ一覧{% endblock %}
+
+{% block content %}
+   <h4 class="mt-4 border-bottom">ユーザ一覧</h4>
+   <a href="{% url 'user_add' %}" class="btn btn-primary btn-sm my-3">追加</a> 
+   <table>
+     <thead>
+       <tr>
+         <th scope="col">ID</th>
+         <th scope="col">名前</th>
+         <th scope="col">操作</th>
+       </tr>
+     </thead>
+     <tbody>
+      {% for user in users %}
+      <tr>
+        <th scope="row">{{ user.id }}</th>
+        <td>{{ user.name }}</td>
+        <td>
+          <a href="{% url 'user_mod' user.id %}" class="btn btn-outline-primary btn-sm">修正</a>
+          <a href="{% url 'user_del' user.id %}" class="btn btn-outline-danger btn-sm">削除</a>
+          <a href="{% url 'task_list' user_id=user.id %}" class="btn btn-outline-info btn-sm">タスクの一覧</a>
+        </td>
+      </tr>
+       {% endfor %}
+      </tbody>
+   </table>
+{% endblock content %}
